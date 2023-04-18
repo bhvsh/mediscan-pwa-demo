@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediScan Demo</title>
+</head>
+<body>
+    <style>
+        body{
+            background-color: #f5f5f5;
+            font-family: sans-serif;
+        }
+        form{
+            width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input{
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"]{
+            background-color: #333;
+            color: #fff;
+            border: 0;
+            cursor: pointer;
+        }
+    </style>
+
+    <div style="height: 28px;"></div>
+    <form action="/" method="get">
+        <img src="/static/logo.png" alt="logo" style="display: block; margin: 0 auto; width: 60px;">
+        <!-- Add a gap-->
+        <br>
+        <!-- Add frames that outputs an image and two text-->
+        <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+            <img src="{{url_for('static', filename='/result.jpg')}}" alt="Result Image" style="display: block; margin: 0 auto; width: 100%;">
+        </div>
+        <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+            <p style="font-size: 14px; font-weight: bold; margin: 0;">Manufacture Date</p>
+            <p style="font-size: 12px; margin: 0;">{{ mfg_date }} </p>
+        </div>
+        <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+            <p style="font-size: 14px; font-weight: bold; margin: 0;">Expiry Date</p>
+            <p style="font-size: 12px; margin: 0;">{{ exp_date }}</p>
+        </div>
+        <br>
+
+        <!--Input an image-->
+        <input type="submit" name="submit" value="Submit another image">
+        
+    </form>
+
+    <div style="text-align: center; font-size: 12px; color: #999;">This is a demo application made to test the deployed API for the project</div>
+    <div style="text-align: center; font-size: 12px; color: #999;">"Real-Time Medicine Packet Recognition System in Dispensing Medicines"</div>
+
+
+</body>
+</html>
