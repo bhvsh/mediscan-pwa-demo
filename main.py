@@ -42,27 +42,31 @@ def redirect_to_main():
 @app.route('/result',  methods=['POST'])
 def result():
     """Sends the POST request to the API and renders the result page."""
-    # Get the image from the form
-    image = request.files['image']
-    # Convert image to base64 string
-    encoded_string = base64.b64encode(image.read()).decode('utf-8')
-    # Send image to api
-    data = {'image': encoded_string}
-    headers = {'Content-type': 'application/json'}
-    response = requests.post(config.API_URL, data=json.dumps(data), headers=headers, timeout=10)
-    # Get the result from api
-    resp = json.loads(response.text)
-    # Get the image from api and convert from base64 string to image
-    img_display = base64.b64decode(resp['image'][2:-1])
-    # Get the mfg date from api
-    mfg_date = resp['mfg_date']
-    # Get the exp date from api
-    exp_date = resp['expiry_date']
-    # Save the image to a file
-    with open("static/result.jpg", "wb") as result_file:
-        result_file.write(img_display)
-    # Direct to result.html
-    return render_template('/result.html',mfg_date=mfg_date, exp_date=exp_date)
+    try:
+        # Get the image from the form
+        image = request.files['image']
+        # Convert image to base64 string
+        encoded_string = base64.b64encode(image.read()).decode('utf-8')
+        # Send image to api
+        data = {'image': encoded_string}
+        headers = {'Content-type': 'application/json'}
+        response = requests.post(config.API_URL, data=json.dumps(data), headers=headers, timeout=20)
+        # Get the result from api
+        resp = json.loads(response.text)
+        # Get the image from api and convert from base64 string to image
+        img_display = base64.b64decode(resp['image'])
+        # Get the mfg date from api
+        mfg_date = resp['mfg_date']
+        # Get the exp date from api
+        exp_date = resp['expiry_date']
+        # Save the image to a file
+        with open("static/result.jpg", "wb") as result_file:
+            result_file.write(img_display)
+        # Direct to result.html
+        return render_template('/result.html',mfg_date=mfg_date, exp_date=exp_date)
+    except Exception as e:
+        # Direct to error.html if there is an error
+        return render_template('/error.html', error=e)
 
 if __name__=='__main__':
     app.run(debug = False)
