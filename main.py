@@ -50,7 +50,7 @@ def result():
         # Send image to api
         data = {'image': encoded_string}
         headers = {'Content-type': 'application/json'}
-        response = requests.post(config.API_URL, data=json.dumps(data), headers=headers, timeout=20)
+        response = requests.post(config.API_URL, data=json.dumps(data), headers=headers, timeout=30)
         # Get the result from api
         resp = json.loads(response.text)
         # Get the image from api and convert from base64 string to image
@@ -67,6 +67,14 @@ def result():
     except Exception as e:
         # Direct to error.html if there is an error
         return render_template('/error.html', error=e)
+    
+@app.route('/offline.html')
+def offline():
+    return app.send_static_file('offline.html')
+
+@app.route('/service-worker.js')
+def sw():
+    return app.send_static_file('service-worker.js')
 
 if __name__=='__main__':
     app.run(debug = False)

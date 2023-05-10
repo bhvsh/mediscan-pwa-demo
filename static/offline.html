@@ -8,7 +8,7 @@
     <link rel="icon" sizes="192x192" href="{{ url_for('static', filename='images/ms_launcher-192-192.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
     <title>MediScan Demo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
 
@@ -19,14 +19,14 @@
         <br>
         <!-- Add frames that outputs an error message-->
         <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
-            <p style="font-size: 14px; font-weight: bold; margin: 0;">Error occured while processing your request</p>
-            <p style="font-size: 14px; margin: 0;">Additional information: </p>
-            <p style="font-style: oblique; font-size: 12px; margin: 0;">{{ error }}</p>
+            <p style="font-size: 14px; font-weight: bold; margin: 0;">You are currently offline right now</p>
+            <p style="font-size: 14px; margin: 0;">Sorry, it looks like you're currently offline. Please check your network connection and try again.</p>
+    
         </div>
         
+        <!--Try again button-->
+        <button type="submit" class="offline-button" name="submit">Try again</button>
 
-        <!--Input an image-->
-        <input type="submit" name="submit" value="Submit another image">
         
     </form>
 
