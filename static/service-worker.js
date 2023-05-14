@@ -1,14 +1,10 @@
-
-
-
-
-
 const cacheName = 'flask-PWA-v3';
 const filesToCache = [
     '/',
     '/static/app.js',
     '/static/styles.css',
     '/static/images/pwa-light.png',
+    '/static/logo.png',
     '/static/offline.html'
 ];
 
@@ -21,11 +17,6 @@ self.addEventListener('install', function(e) {
     })
   );
 });
-
-
-
-
-
 
 self.addEventListener('activate', function(e) {
   console.log('[ServiceWorker] Activate');
@@ -41,11 +32,6 @@ self.addEventListener('activate', function(e) {
   );
   return self.clients.claim();
 });
-
-
-
-
-
 
 self.addEventListener('fetch', function(e) {
   console.log('[ServiceWorker] Fetch', e.request.url);

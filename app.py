@@ -47,9 +47,13 @@ def result():
         image = request.files['image']
         # Convert image to base64 string
         encoded_string = base64.b64encode(image.read()).decode('utf-8')
+        # Raise an exception if there is no image
+        if str(encoded_string) == "":
+            respstr='No image has been loaded for request. Please upload an image and try again.'
+            return render_template('/error.html', error=respstr, reqjson=str(request.files), respjson="Request blocked")
         # Send image to api
         data = {'image': encoded_string}
-        headers = {'Content-type': 'application/json'}
+        headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
         response = requests.post(config.API_URL, data=json.dumps(data), headers=headers, timeout=30)
         # Get the result from api
         resp = json.loads(response.text)
@@ -66,7 +70,7 @@ def result():
         return render_template('/result.html',mfg_date=mfg_date, exp_date=exp_date)
     except Exception as e:
         # Direct to error.html if there is an error
-        return render_template('/error.html', error=e)
+        return render_template('/error.html', error=traceback.format_exc(), reqjson=str(request.files), respjson=str(response.text))
     
 @app.route('/offline.html')
 def offline():
