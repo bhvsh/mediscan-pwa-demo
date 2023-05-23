@@ -1,9 +1,3 @@
-
-
-
-
-
-
 // Register Service Worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
@@ -17,14 +11,9 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-
-
-
 let deferredPrompt;
 const addBtn = document.querySelector('.add-button');
 addBtn.style.display = 'none';
-
-
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
@@ -35,26 +24,15 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
-
-
           console.log('User accepted the A2HS prompt');
-
-
         } else {
-
           console.log('User dismissed the A2HS prompt');
-
         }
         deferredPrompt = null;
       });
   });
 });
 
-
-
-
 window.addEventListener('online', function(e) {
     console.log("You are online");
 }, false);
-
-
